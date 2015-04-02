@@ -39,11 +39,15 @@ def walk_file(root):
 
                     # run R script for each file
                     failedpath = run_R(filepath, new_dir, names)
-
-                    failed_filelist.append(failedpath)
+                    
+                    # add failed directories to the list
+                    if not failedpath: 
+                        failed_filelist.append(failedpath)
         # file path dictionary
         file_path = {"file_path": full_path}
-        print failed_filelist
+        
+        if not failed_filelist:
+            print failed_filelist
 
 
 
