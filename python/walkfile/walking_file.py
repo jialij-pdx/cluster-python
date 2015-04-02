@@ -51,7 +51,8 @@ def walk_file(root):
 # (after anonymizing: anonymizer will copy the file over to the destination folder)
 # parse the destination folder to the anonymizer
 def run_R(path,dest_path, filename):
-
+	
+    failed_path = ''
     # find R script in current working directory
     #script_R = os.path.join(os.getcwd(), 'test.R')
     script_R = "/home/jialij/walkfile/bpapmu2014/bin/pdat_hash"
@@ -64,7 +65,7 @@ def run_R(path,dest_path, filename):
     try:
         subprocess.check_call([script_R, '-s', path, '-d', dest])
     except subprocess.CalledProcessError as e:
-        print e.output
+        print e
         failed_path = path
 
     end_time = timeit.default_timer()
