@@ -8,10 +8,10 @@ import timeit
 
 # the original data archive
 #root = '/Users/personal/Documents/research/useful'
-root = "/Users/personal/desktop/Data_A_PMUs/2014/140410"
+root ="/home/jialij/walkfile/Data_BPA/Data_B_PMUs/2014/140410"
 
 # the destination folder directory
-storage_root = '/Users/personal/Documents/research/bpa_redmine/temp'
+storage_root = "/home/jialij/walkfile/Temp"
 
 
 # filepath json dictionary
@@ -52,7 +52,7 @@ def run_R(path,dest_path, filename):
     failed_filelist = []
     # find R script in current working directory
     #script_R = os.path.join(os.getcwd(), 'test.R')
-    script_R = "/Users/personal/documents/research/bpa_redmine/bpapmu2014/bin/pdat_hash"
+    script_R = "/home/jialij/walkfile/bpapmu2014/bin/pdat_hash"
 
     # three arguments: script, destination directory, and filename
     dest = os.path.join(dest_path, filename)
