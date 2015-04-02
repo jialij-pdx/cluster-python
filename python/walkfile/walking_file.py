@@ -1,3 +1,6 @@
+# Cluster-walking files
+# Copyright (C) 2015  Jiali Ju
+
 import os
 import subprocess
 import timeit
