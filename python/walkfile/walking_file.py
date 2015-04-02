@@ -22,6 +22,7 @@ file_path = {}
 def walk_file(root):
     # walk the directory
     full_path = []
+    failed_filelist = []
 
     # check if empty directory, stop
     if not os.path.exists(root):
@@ -36,11 +37,13 @@ def walk_file(root):
                     full_path.append(filepath)
                     new_dir =  get_new_directory(filepath)
 
-                # run R script for each file
-                    run_R(filepath, new_dir, names)
+                    # run R script for each file
+                    failedpath = run_R(filepath, new_dir, names)
 
+                    failed_filelist.append(failedpath)
         # file path dictionary
         file_path = {"file_path": full_path}
+        print failed_filelist
 
 
 
@@ -49,7 +52,6 @@ def walk_file(root):
 # parse the destination folder to the anonymizer
 def run_R(path,dest_path, filename):
 
-    failed_filelist = []
     # find R script in current working directory
     #script_R = os.path.join(os.getcwd(), 'test.R')
     script_R = "/home/jialij/walkfile/bpapmu2014/bin/pdat_hash"
@@ -63,11 +65,12 @@ def run_R(path,dest_path, filename):
         subprocess.check_call([script_R, '-s', path, '-d', dest])
     except subprocess.CalledProcessError as e:
         print e.output
-        failed_filelist.append(path)
+        failed_path = path
 
     end_time = timeit.default_timer()
 
     print "Total: ", end_time - start_time, " long"
+    return failed_path
 
 
 # generate new directory according to the orginal name
