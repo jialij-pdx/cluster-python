@@ -17,22 +17,27 @@ file_path = {}
 
 # walk through files
 def walk_file(root):
-    # walk the directory  TODO: empty directory check
+    # walk the directory
     full_path = []
-    for path, dir, files in os.walk(root, topdown=False):
 
-        for names in files:
-            filepath = os.path.join(path, names)
-            if 'pdat' in os.path.basename(filepath).split('.'):
-                print "filename is: ", names
-                full_path.append(filepath)
-                new_dir =  get_new_directory(filepath)
+    # check if empty directory, stop
+    if not os.path.exists(root):
+        print "The data archive does not exist. "
+    else:
+        for path, dir, files in os.walk(root, topdown=False):
+
+            for names in files:
+                filepath = os.path.join(path, names)
+                if 'pdat' in os.path.basename(filepath).split('.'):
+                    print "filename is: ", names
+                    full_path.append(filepath)
+                    new_dir =  get_new_directory(filepath)
 
                 # run R script for each file
-                run_R(filepath, new_dir, names)
+                    run_R(filepath, new_dir, names)
 
-    # file path dictionary
-    file_path = {"file_path": full_path}
+        # file path dictionary
+        file_path = {"file_path": full_path}
 
 
 
