@@ -57,7 +57,6 @@ def run_R(path,dest_path, filename):
         print e.output
         failed_filelist.append(path)
 
-
     end_time = timeit.default_timer()
 
     print "Total: ", end_time - start_time, " long"
