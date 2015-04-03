@@ -17,7 +17,7 @@ usr menu, generate job list
 #root = '/scratch2/tshott/BPA_Generic'
 
 #for test purpose
-root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141105'
+root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141104'
 
 
 script_root = '/home/jialij/walkfile/rtest2/bpapmu2014/bin'
@@ -51,7 +51,7 @@ def get_job():
         if user_job == 'Y' or user_job == 'y' or user_job == 'yes':
 
             #default input
-            user_start_time = '2014-11-05 00:00:00'
+            user_start_time = '2014-11-04 23:00:00'
             #user_start_time = '2014-09-16 00:00:00'
             start_time = format_time(user_start_time)
             user_end_time = str(start_time + datetime.timedelta(hours=1))
@@ -154,6 +154,7 @@ def search_file_day(start_time, end_time, type):
     for path, dir, files in os.walk(root, topdown=False):
         for i in range(len(files)):
             #print files[i]
+           
             if files[i] == start_filename:
                 search_list.append(os.path.join(path,files[i]))
                 while True:
@@ -221,6 +222,7 @@ def get_search_fileList(start_time, end_time, type):
         usr_start, usr_end = l
         day_file_list = search_file_day(usr_start, usr_end, type)
         fileList.append(day_file_list)
+    print len(fileList)
     return fileList
 
 
@@ -252,9 +254,9 @@ def run_job():
             chunk_size = raw_input("Please enter chunk size: how many files?")
 
         for src_dir in source_dir:
-            #print src_dir
-            copy_file(src_dir,temp_folder,job_id, start_time_wanted)
-            run_R(job_id,src_dir,script_dir, chunk,chunk_size)
+             #print src_dir
+             copy_file(src_dir,temp_folder,job_id, start_time_wanted)
+             run_R(job_id,src_dir,script_dir, chunk,chunk_size)
 
 # copy file to the temp folder
 def copy_file(src_dir,dest_dir,job_id, start_time):
@@ -329,7 +331,8 @@ if __name__ == '__main__':
     start_time = timeit.default_timer()
     run_job()
     end_time = timeit.default_timer()
-
-    print "Total: ", (end_time - start_time)/60, " long"
+    
+    duration = round((end_time-start_time)/60,2)
+    print "Total: ", duration, " min spend."
 
     print 'All done'

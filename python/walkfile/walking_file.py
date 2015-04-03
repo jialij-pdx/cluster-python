@@ -112,4 +112,5 @@ if __name__ == '__main__':
     walk_file(root)
     end_time = timeit.default_timer()
 
-    print "Total: ", end_time - start_time, " spent"
+    duration = round((end_time-start_time)/60, 2)
+    prina "Total: ", duration, " min spent."
