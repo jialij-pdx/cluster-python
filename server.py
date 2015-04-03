@@ -22,10 +22,11 @@ root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141105'
 
 script_root = '/home/jialij/walkfile/rtest2/bpapmu2014/bin'
 
-storage_root = '/scratch2/tshott/result'
+storage_root = '/scratch2/tshott/result/test'
+#storage_root = '/scratch2/tshott/result'
 
-temp_folder = '/scratch2/tshott/tmp'
-
+temp_folder = '/scratch2/tshott/tmp/test'
+#temp_folder = '/scratch2/tshott/tmp'
 
 # initialize job array
 job_input = []

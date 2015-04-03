@@ -12,7 +12,7 @@ import timeit
 root ="/scratch2/tshott/BPA_data_test"
 
 # the destination folder directory
-storage_root = "/scratch2/tshott/BPA_Generic_test"
+storage_root = "/scratch2/tshott/BPA_Generic_test/"
 
 
 # filepath json dictionary
