@@ -17,15 +17,15 @@ usr menu, generate job list
 #root = '/scratch2/tshott/BPA_Generic'
 
 #for test purpose
-root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141104'
+root = '/Users/personal/documents/tshott/BPA_Generic_test/tshott/BPA_data_test/141105'
 
 
-script_root = '/home/jialij/walkfile/rtest2/bpapmu2014/bin'
+script_root = '/Users/personal/home/jialij/walkfile/rtest2/bpapmu2014/bin'
 
-storage_root = '/scratch2/tshott/result/test'
+storage_root = '/Users/personal/documents/tshott/result/test'
 #storage_root = '/scratch2/tshott/result'
 
-temp_folder = '/scratch2/tshott/tmp/test'
+temp_folder = '/Users/personal/documents/tshott/tmp/test'
 #temp_folder = '/scratch2/tshott/tmp'
 
 # initialize job array
@@ -51,13 +51,13 @@ def get_job():
         if user_job == 'Y' or user_job == 'y' or user_job == 'yes':
 
             #default input
-            user_start_time = '2014-11-04 23:00:00'
+            user_start_time = '2014-11-05 00:00:00'
             #user_start_time = '2014-09-16 00:00:00'
             start_time = format_time(user_start_time)
             user_end_time = str(start_time + datetime.timedelta(hours=1))
             
             user_type = 'A'
-            user_script = "/home/jialij/walkfile/rtest2/bpapmu2014/bin/pdat_check"
+            user_script = "/Users/personal/home/jialij/walkfile/rtest2/bpapmu2014/bin/pdat_check"
 
             # User input: start time, end time, pmu type, and the analysis script
             # For each job, ask for users input until they say done.
@@ -253,16 +253,35 @@ def run_job():
         if chunk in ['No', 'N']:
             chunk_size = raw_input("Please enter chunk size: how many files?")
 
+        print "start copying... \n"
+        # copy files to the temp folder
+        #print source_dir
         for src_dir in source_dir:
-             #print src_dir
-             copy_file(src_dir,temp_folder,job_id, start_time_wanted)
-             run_R(job_id,src_dir,script_dir, chunk,chunk_size)
+             #print os.path.splitext(src_dir)[-1]
+             if os.path.splitext(src_dir)[-1] == '.pdat':
+                 dest_tmp = copy_file(src_dir,temp_folder,job_id, start_time_wanted)
+                 #print dest_tmp
+             #run_R(job_id,src_dir,script_dir, chunk,chunk_size)
+        print "Success!"
+
+        print "start running script... \n"
+        # run analysis script from the temp folder
+        files = os.listdir(dest_tmp)
+        print files
+        for f in files:
+            print f
+            run_R(job_id,dest_tmp,script_dir, chunk,chunk_size,f)
+        print "Success!"
+
+
+
 
 # copy file to the temp folder
 def copy_file(src_dir,dest_dir,job_id, start_time):
 
     new_folder = str(job_id) + '_'+ time_to_name(start_time)
-    dest = dest_dir + '/'+ new_folder
+    dest = os.path.join(dest_dir,new_folder)
+
     if not os.path.exists(dest):
         os.makedirs(dest)
     try:
@@ -273,15 +292,16 @@ def copy_file(src_dir,dest_dir,job_id, start_time):
     # Any error saying that the directory doesn't exist
     except OSError as e:
         print('Directory not copied. Error: %s' % e)
+    return dest
 
 # run R script in Python
 # store the output in the result folder
-def run_R(job_id, src_dir, script_dir,chunk, chunk_size):
+def run_R(job_id, src_dir, script_dir,chunk, chunk_size,names):
 
     failed_path = ''
     script_R = script_dir
-    source = os.path.dirname(src_dir)
-    filename = os.path.basename(src_dir)
+    source = src_dir
+    filename = names
     #dest_result = dest_dir
 
     # required argument: -d, source dir

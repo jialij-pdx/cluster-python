@@ -9,7 +9,7 @@ import timeit
 # the original data archive
 #root = '/Users/personal/Documents/research/useful'
 #root ="/scratch2/tshott/data"
-root ="/scratch2/tshott/BPA_data_test"
+root ="/scratch2/tshott/BPA_data_test/141105"
 
 # the destination folder directory
 storage_root = "/scratch2/tshott/BPA_Generic_test/"
@@ -113,4 +113,4 @@ if __name__ == '__main__':
     end_time = timeit.default_timer()
 
     duration = round((end_time-start_time)/60, 2)
-    prina "Total: ", duration, " min spent."
+    print "Total: ", duration, " min spent."
