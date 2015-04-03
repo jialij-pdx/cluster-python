@@ -8,10 +8,11 @@ import timeit
 
 # the original data archive
 #root = '/Users/personal/Documents/research/useful'
-root ="/home/jialij/walkfile/Data_BPA/Data_B_PMUs/2014/140410"
+#root ="/scratch2/tshott/data"
+root ="/scratch2/tshott/BPA_data_test"
 
 # the destination folder directory
-storage_root = "/home/jialij/walkfile/Temp"
+storage_root = "/scratch2/tshott/BPA_Generic_test"
 
 
 # filepath json dictionary
