@@ -17,7 +17,7 @@ usr menu, generate job list
 #root = '/scratch2/tshott/BPA_Generic'
 
 #for test purpose
-root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141104'
+root = '/scratch2/tshott/BPA_Generic_test/tshott/BPA_data_test/141105'
 
 
 script_root = '/home/jialij/walkfile/rtest2/bpapmu2014/bin'
@@ -51,7 +51,7 @@ def get_job():
         if user_job == 'Y' or user_job == 'y' or user_job == 'yes':
 
             #default input
-            user_start_time = '2014-11-04 23:00:00'
+            user_start_time = '2014-11-05 00:00:00'
             #user_start_time = '2014-09-16 00:00:00'
             start_time = format_time(user_start_time)
             user_end_time = str(start_time + datetime.timedelta(hours=1))
@@ -298,6 +298,7 @@ def run_R(job_id, src_dir, script_dir,chunk, chunk_size):
         print file_name
 
         dest = os.path.join(storage_root, file_name)
+        print dest
         with open(dest, "w+") as output:
             print "trying to write files"
             if chunk_size != '':
@@ -311,7 +312,7 @@ def run_R(job_id, src_dir, script_dir,chunk, chunk_size):
         failed_path = source
 
         output.close()
-
+       
     end_time = timeit.default_timer()
 
     print "Total: ", end_time - start_time, " long"
