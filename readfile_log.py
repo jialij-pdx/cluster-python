@@ -121,7 +121,6 @@ def run_R(path,dest_path, filename):
     log_output.write("Log: " + str(start_process_time) + "\n")
 
     # start process
-    global pymsg
     try:
         subprocess.check_call([script_R, '-s', path, '-d', dest])
 
@@ -130,7 +129,7 @@ def run_R(path,dest_path, filename):
         # Get the traceback object
         tb = sys.exc_info()[2]
         tbinfo = traceback.format_tb(tb)[0]
-   
+        global pymsg
         pymsg = "PYTHON ERRORS:\nTraceback info:\n" + tbinfo + "\nError Info:\n" + str(sys.exc_info()[1])
         failed_path = path
 
